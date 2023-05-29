@@ -1,2 +1,9 @@
 # CostCoast-Firebase
-Firebase backend for CostCoast
+1. 保存客户购物收据
+2. 创建产品目录-订阅项目
+3. 每日生成爬取任务计划
+4. 定时执行爬取任务，保存任务结果
+6. 生成每日通知列表
+7. 每日生成通知计划
+8. 定时发送通知
+![示意图](doc/Schematic.png)
