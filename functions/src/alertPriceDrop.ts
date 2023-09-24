@@ -24,6 +24,7 @@ export const alertPriceDrop = onDocumentUpdated(
           good_id: itemIdInt,
           good_name: itemName,
           price: newPriceInt,
+          nonce_str: "VpfDR6vFr4bxsOUA",
         };
 
         try {
