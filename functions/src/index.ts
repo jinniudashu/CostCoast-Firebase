@@ -4,6 +4,7 @@ import {createNotifyPlan} from "./manageNotifyPlan";
 import {createScrapingPlan} from "./manageScrapingPlan";
 import {scraper} from "./scraper";
 import {notifyManager} from "./notifyManager";
+import { createProductList } from "./createProductList";
 
 admin.initializeApp();
 
@@ -12,3 +13,4 @@ exports.createNotifyPlan = createNotifyPlan;
 exports.createScrapingPlan = createScrapingPlan;
 exports.scraper = scraper;
 exports.notifyManager = notifyManager;
+exports.createProductList = createProductList;
