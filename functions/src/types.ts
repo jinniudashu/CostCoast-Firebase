@@ -19,7 +19,7 @@ export interface Subscription {
   
 export interface Plan {
   itemId: string,
-  price: string,
+  price: number | null,
   tradeDatetime: string,
   completed: boolean,
   newPrice?: string | null,
@@ -35,7 +35,7 @@ export interface PriceInfo {
 
 export interface Result {
   itemId: string,
-  newPrice: string | null,
+  newPrice: number | null,
   searchable: Searchable,
   scrapedDatetime: Date,
   executionTime: number,

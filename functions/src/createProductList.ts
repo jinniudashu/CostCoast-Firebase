@@ -52,11 +52,11 @@ export const createProductList = onRequest(async (req, res) => {
                         price: item.price,
                         tradeDatetime: receipt.tradeDatetime,
                     });
-                } else {
-                    // 如果交易价格高于最新价格，发送即时通知
-                    if (Number(item.price) > Number(docSnapshot.data()?.price)) {
-                        console.log("最新价格已经低于购买价，考虑发送即时通知");
-                    }
+                // } else {
+                //     // 如果交易价格高于最新价格，发送即时通知
+                //     if (Number(item.price) > Number(docSnapshot.data()?.price)) {
+                //         console.log("最新价格已经低于购买价，考虑发送即时通知");
+                //     }
                 }
             } else {
                 // 向 ProductList/itemId/Profile 新增item内容

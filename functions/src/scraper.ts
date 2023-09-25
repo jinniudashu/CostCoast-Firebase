@@ -150,21 +150,26 @@ const scraping = async (items: string[]): Promise<Result[] | string> => {
 
   // 开始计时
   const startTime = performance.now();
-  const executeablePath = puppeteer.executablePath();
+//   const executeablePath = puppeteer.executablePath();
   const browser: Browser = await puppeteer.launch({
-    executablePath: executeablePath,
-    userDataDir: "/root/.cache/puppeteer",
-  });
+    // executablePath: executeablePath,
+    ignoreHTTPSErrors: true,
+    // userDataDir: "/root/.cache/puppeteer",
+    userDataDir: "./puppeteer_cache",
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors'],
+    headless: false, // 设置为false以查看浏览器
+    slowMo: 250, // 延迟每个操作250毫秒
+});
 
   while (items.length > 0) {
     try {
       itemId = items.pop() as string;
       priceInfo = await scrapeAction(browser, itemId);
       console.log(`${itemId}结果：`, priceInfo);
-      // 如果priceInfo.price不为null, 则去掉'.', 以分为单位保存
+      // 如果priceInfo.price不为null, 则去掉'.', 转换为数值, 以分为单位保存
       let price = null;
       if (priceInfo.price) {
-        price = priceInfo.price.replace(".", "");
+        price = Number(priceInfo.price.replace(".", ""));
       }
       results.push({
         itemId: itemId,
@@ -251,8 +256,9 @@ const saveResult = async (results: Result[]): Promise<void> => {
     batchScrapedDatetime.set(scrapedDatetimeRef,
       {scrapedDatetime: result.scrapedDatetime});
 
+    let priceInt = null;
     // 如果newPrice不为null且与todos中的item.price不同，则更新price字段
-    if (result.newPrice && result.newPrice !== todo?.price) {
+    if (result.newPrice && priceInt !== todo?.price) {
       batchLatestPrice.update(latestPriceRef, {price: result.newPrice});
     }
   });
@@ -294,3 +300,22 @@ export const scraper = functions.scheduler.onSchedule(
 
     return;
   });
+
+  export const testScraper = functions.https.onRequest(async (req, res) => {
+    // 获取爬取项目列表
+    const items = ["1029407", "1068083", "1088568"]
+
+    if (items.length > 0) {
+      // 执行爬取任务
+      const results = await scraping(items);
+      if (typeof results === "string") {
+        console.log("任务失败：", results);
+      } else {
+        // 保存结果到数据库
+        // await saveResult(results);
+        console.log(results);
+      }
+    }
+
+    res.send("Done");
+});

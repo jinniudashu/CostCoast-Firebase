@@ -26,14 +26,14 @@ export const createScrapingPlan = functions.scheduler.onSchedule(
     const promises = itemsRef.map(async (doc) => {
       const itemId = doc.id;
 
-      let latestPrice = "";
+      let latestPrice = null;
       let tradeDatetime = "";
       const latestPriceRef = doc.collection("Profile").doc("latestPrice");
       const latestPriceSnapshot = await latestPriceRef.get();
       if (latestPriceSnapshot.exists) {
         const latestPriceData = latestPriceSnapshot.data() as {
           itemId: string,
-          price: string,
+          price: number,
           tradeDatetime: string,
         };
         latestPrice = latestPriceData.price;
