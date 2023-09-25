@@ -150,15 +150,16 @@ const scraping = async (items: string[]): Promise<Result[] | string> => {
 
   // 开始计时
   const startTime = performance.now();
-//   const executeablePath = puppeteer.executablePath();
+  const executeablePath = puppeteer.executablePath();
   const browser: Browser = await puppeteer.launch({
-    // executablePath: executeablePath,
+    executablePath: executeablePath,
     ignoreHTTPSErrors: true,
-    // userDataDir: "/root/.cache/puppeteer",
-    userDataDir: "./puppeteer_cache",
+    userDataDir: "/root/.cache/puppeteer",
+    // 本地测试时使用
+    // userDataDir: "./puppeteer_cache",
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors'],
-    headless: false, // 设置为false以查看浏览器
-    slowMo: 250, // 延迟每个操作250毫秒
+    // headless: false, // 设置为false以查看浏览器
+    // slowMo: 250, // 延迟每个操作250毫秒
 });
 
   while (items.length > 0) {
