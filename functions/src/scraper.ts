@@ -153,11 +153,11 @@ const scraping = async (items: string[]): Promise<Result[] | string> => {
   const executeablePath = puppeteer.executablePath();
   const browser: Browser = await puppeteer.launch({
     executablePath: executeablePath,
-    ignoreHTTPSErrors: true,
     userDataDir: "/root/.cache/puppeteer",
+    // ignoreHTTPSErrors: true,
     // 本地测试时使用
     // userDataDir: "./puppeteer_cache",
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors'],
+    // args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors'],
     // headless: false, // 设置为false以查看浏览器
     // slowMo: 250, // 延迟每个操作250毫秒
 });
@@ -302,7 +302,7 @@ export const scraper = functions.scheduler.onSchedule(
     return;
   });
 
-  export const testScraper = functions.https.onRequest(async (req, res) => {
+export const testScraper = functions.https.onRequest(async (req, res) => {
     // 获取爬取项目列表
     const items = ["1029407", "1068083", "1088568"]
 
