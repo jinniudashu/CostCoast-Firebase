@@ -46,8 +46,9 @@ export const alertPriceDrop = onDocumentUpdated(
 /**
  * API 文档：`alertPriceDrop`
 curl -X POST -H "Content-Type: application/json" -d '{
-  "good_id": 1397329,
-  "good_name": "MILAN RUNNER",
-  "price": 1200
+    good_id: 1397329,
+    good_name: "MILAN RUNNER",
+    price: 1200,
+    nonce_str: "VpfDR6vFr4bxsOUA",
 }' "https://www.alexmmd.top/api/price-drop-alert/"
  */

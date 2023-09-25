@@ -161,9 +161,14 @@ const scraping = async (items: string[]): Promise<Result[] | string> => {
       itemId = items.pop() as string;
       priceInfo = await scrapeAction(browser, itemId);
       console.log(`${itemId}结果：`, priceInfo);
+      // 如果priceInfo.price不为null, 则去掉'.', 以分为单位保存
+      let price = null;
+      if (priceInfo.price) {
+        price = priceInfo.price.replace(".", "");
+      }
       results.push({
         itemId: itemId,
-        newPrice: priceInfo.price,
+        newPrice: price,
         searchable: priceInfo.searchable,
         scrapedDatetime: new Date(),
         executionTime: performance.now() - startTime,

@@ -31,7 +31,9 @@ export const createProductList = onRequest(async (req, res) => {
     const productListRef = admin.firestore().collection("ProductList");
 
     for (const item of receipt.items) {
-        const productItemRef = productListRef.doc(item.itemId);
+        // 把 itemId 转化为字符串
+        const itemId = String(item.itemId);
+        const productItemRef = productListRef.doc(itemId);
         const profileRef = productItemRef.collection("Profile");
         
         // 尝试获取文档数据
